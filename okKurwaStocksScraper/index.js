@@ -3,6 +3,7 @@ const fs = require("fs");
 const cheerio = require("cheerio");
 
 
+
 async function tsla() {
     const html = await request.get(
         "https://finance.yahoo.com/quote/TSLA/"
@@ -21,7 +22,7 @@ async function tsla() {
     console.log(Symbol);
     console.log(PercentChange)
 
-    setTimeout(tsla, 1000); //60 seconds == 1minute
+    setTimeout(tsla, 30000); //60 seconds == 1minute
 }
 
 tsla();
@@ -44,7 +45,7 @@ async function aapl() {
     console.log(Price);
     console.log(Symbol);
 
-    setTimeout(aapl, 1000); // 60,000 = 60 seconds == 1minute
+    setTimeout(aapl, 30000); // 60,000 = 60 seconds == 1minute
 }
 
 aapl();
@@ -68,7 +69,7 @@ async function spy() {
     console.log(Symbol);
     console.log(PercentChange);
 
-    setTimeout(spy, 1000); // 60,000 = 60 seconds == 1minute
+    setTimeout(spy, 30000); // 60,000 = 60 seconds == 1minute
 }
 
 spy();
@@ -91,7 +92,7 @@ async function nvda() {
     console.log(Symbol);
     console.log(PercentChange);
 
-    setTimeout(nvda, 1000); // 60,000 = 60 seconds == 1minute
+    setTimeout(nvda, 30000); // 60,000 = 60 seconds == 1minute
 }
 
 nvda();
