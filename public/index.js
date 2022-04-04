@@ -2,11 +2,6 @@ const request = require("request-promise");
 const fs = require("fs");
 const cheerio = require("cheerio");
 
-const app = express();
-const port = process.env.PORT || 5000
-
-
-
 async function tsla() {
     const html = await request.get(
         "https://finance.yahoo.com/quote/TSLA/"
@@ -22,7 +17,7 @@ async function tsla() {
     fs.writeFileSync("./tslaPercentChange.csv", PercentChange)
     
 
-    setTimeout(tsla, 1000); //60 seconds == 1minute
+    setTimeout(tsla, 20000); //60 seconds == 1minute
 }
 
 tsla();
@@ -43,7 +38,7 @@ async function aapl() {
     
 
 
-    setTimeout(aapl, 1000); // 60,000 = 60 seconds == 1minute
+    setTimeout(aapl, 20000); // 60,000 = 60 seconds == 1minute
 }
 
 aapl();
@@ -64,7 +59,7 @@ async function spy() {
     fs.writeFileSync("./spyPercentChange.csv", PercentChange)
 
 
-    setTimeout(spy, 1000); // 60,000 = 60 seconds == 1minute
+    setTimeout(spy, 20000); // 60,000 = 60 seconds == 1minute
 }
 
 spy();
@@ -84,9 +79,8 @@ async function nvda() {
     fs.writeFileSync("./nvdaPercentChange.csv", PercentChange)
 
 
-    setTimeout(nvda, 1000); // 60,000 = 60 seconds == 1minute
+    setTimeout(nvda, 20000); // 60,000 = 60 seconds == 1minute
 }
 
 nvda();
 
-app.listen(port, () => console.log("hello"))
