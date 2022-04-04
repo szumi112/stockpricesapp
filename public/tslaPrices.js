@@ -2,7 +2,7 @@ const getPrice = async () => {
     const res = await fetch('tslaPrice.csv');
     const resp = await res.text();
     document.querySelector(".pricetsla").innerHTML = resp;
-    console.log(getPrice)
+
 }
 
 getPrice();

@@ -2,7 +2,6 @@ const getPricespy = async () => {
     const res = await fetch('spyPrice.csv');
     const resp = await res.text();
     document.querySelector(".pricespy").innerHTML = resp;
-    console.log(getPricespy)
 }
 
 getPricespy();

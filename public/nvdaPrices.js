@@ -2,7 +2,6 @@ const getPricenvda = async () => {
     const res = await fetch('nvdaPrice.csv');
     const resp = await res.text();
     document.querySelector(".pricenvda").innerHTML = resp;
-    console.log(getPricenvda)
 }
 
 getPricenvda();

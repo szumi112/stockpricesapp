@@ -2,7 +2,6 @@ const getPriceAAPL = async () => {
     const res = await fetch('aaplPrice.csv');
     const resp = await res.text();
     document.querySelector(".priceaapl").innerHTML = resp;
-    console.log(getPriceAAPL)
 }
 
 getPriceAAPL();

@@ -16,7 +16,7 @@ async function tsla() {
     fs.writeFileSync("./tslaPrice.csv", Price);
     fs.writeFileSync("./tslaPercentChange.csv", PercentChange)
     
-
+        console.log(Price)
     setTimeout(tsla, 20000); //60 seconds == 1minute
 }
 
@@ -37,7 +37,7 @@ async function aapl() {
     fs.writeFileSync("./aaplPercentChange.csv", PercentChange)
     
 
-
+    console.log(Price)
     setTimeout(aapl, 20000); // 60,000 = 60 seconds == 1minute
 }
 
@@ -58,7 +58,7 @@ async function spy() {
     fs.writeFileSync("./spyPrice.csv", Price);
     fs.writeFileSync("./spyPercentChange.csv", PercentChange)
 
-
+    console.log(Price)
     setTimeout(spy, 20000); // 60,000 = 60 seconds == 1minute
 }
 
@@ -78,7 +78,7 @@ async function nvda() {
     fs.writeFileSync("./nvdaPrice.csv", Price);
     fs.writeFileSync("./nvdaPercentChange.csv", PercentChange)
 
-
+    console.log(Price)
     setTimeout(nvda, 20000); // 60,000 = 60 seconds == 1minute
 }
 
