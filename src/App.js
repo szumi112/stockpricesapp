@@ -3,8 +3,6 @@ import axios from 'axios'
 import Coin from './Coin'
 import './coin.css'
 
-const port = process.env.PORT || 5000;
-
 
 function App() {
 
