@@ -2,6 +2,10 @@ const request = require("request-promise");
 const fs = require("fs");
 const cheerio = require("cheerio");
 
+const app = express();
+const port = process.env.PORT || 5000
+
+
 
 async function tsla() {
     const html = await request.get(
@@ -17,9 +21,6 @@ async function tsla() {
     fs.writeFileSync("./tslaPrice.csv", Price);
     fs.writeFileSync("./tslaPercentChange.csv", PercentChange)
     
-    console.log(Price);
-    console.log(Symbol);
-    console.log(PercentChange)
 
     setTimeout(tsla, 1000); //60 seconds == 1minute
 }
@@ -40,9 +41,7 @@ async function aapl() {
     fs.writeFileSync("./aaplPrice.csv", Price);
     fs.writeFileSync("./aaplPercentChange.csv", PercentChange)
     
-    
-    console.log(Price);
-    console.log(Symbol);
+
 
     setTimeout(aapl, 1000); // 60,000 = 60 seconds == 1minute
 }
@@ -63,10 +62,7 @@ async function spy() {
     fs.writeFileSync("./spySymbol.csv", Symbol);
     fs.writeFileSync("./spyPrice.csv", Price);
     fs.writeFileSync("./spyPercentChange.csv", PercentChange)
-    
-    console.log(Price);
-    console.log(Symbol);
-    console.log(PercentChange);
+
 
     setTimeout(spy, 1000); // 60,000 = 60 seconds == 1minute
 }
@@ -86,12 +82,11 @@ async function nvda() {
     fs.writeFileSync("./nvdaSymbol.csv", Symbol);
     fs.writeFileSync("./nvdaPrice.csv", Price);
     fs.writeFileSync("./nvdaPercentChange.csv", PercentChange)
-    
-    console.log(Price);
-    console.log(Symbol);
-    console.log(PercentChange);
+
 
     setTimeout(nvda, 1000); // 60,000 = 60 seconds == 1minute
 }
 
 nvda();
+
+app.listen(port, () => console.log("hello"))
