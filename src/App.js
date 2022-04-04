@@ -3,6 +3,8 @@ import axios from 'axios'
 import Coin from './Coin'
 import './coin.css'
 
+const port = process.env.PORT || 5000;
+
 
 function App() {
 
@@ -10,10 +12,9 @@ function App() {
   const [search, setSearch] = useState('')
 
   useEffect(() => {
-    axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false')
+    axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false')
     .then(res => {
       setCoins(res.data)
-       console.log(res.data);
     })
     .catch(error => (console.log(error)))
   })
@@ -21,9 +22,10 @@ function App() {
   const handleChange = e => {
     setSearch(e.target.value)
   }
-  
+
   const filteredCoins = coins.filter(coin =>
-    coin.name.toLowerCase().includes(search.toLowerCase()))
+  coin.name.toLowerCase().includes(search.toLowerCase()))
+
 
   return (
     <div className="coin-app">
@@ -46,8 +48,8 @@ function App() {
             </div>
             <div className="coin-data">
               <li>Price</li>
-              <li>Percent Change</li>
               <li>Market Cap</li>
+              <li>24h Change</li>
             </div>
           </ul>
         </div>
