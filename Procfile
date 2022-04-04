@@ -1,1 +1,0 @@
-web: cd public && node index.js
