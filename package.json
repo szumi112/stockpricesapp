@@ -15,9 +15,12 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "concurrently \"npm run start\" \"npm run server\"",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
     "server": "node public/index.js",
-    "client": "npm start public/index.html"
+    "dev": "concurrently \"npm run server\" \"npm run start\""
+
     
   },
   "eslintConfig": {
