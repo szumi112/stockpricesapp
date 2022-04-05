@@ -4,23 +4,6 @@ const cheerio = require("cheerio");
 
 const http = require("http");
 
-// Port Environment variable
-const PORT = process.env.PORT || 5000;
-
-// Creating the node server
-const SERVER = http.createServer();
-
-// Firing up the server on selected port
-SERVER.listen(PORT);
-
-SERVER.on("listening", () => {
-    console.log("[Server]::LISTEN:%s", PORT);
-});
-
-// Callback function for checking connecting or error
-SERVER.on("error", error => {
-    throw new Error(`[Server]::ERROR:${error.message}`);
-});
 
 async function tsla() {
     const html = await request.get(
@@ -37,7 +20,7 @@ async function tsla() {
     fs.writeFileSync("./public/tslaPercentChange.csv", PercentChange)
     
         console.log(Price)
-    setTimeout(tsla, 20000); //60 seconds == 1minute
+    setTimeout(tsla, 1000); //60 seconds == 1minute
 }
 
 tsla();
@@ -58,7 +41,7 @@ async function aapl() {
     
 
     console.log(Price)
-    setTimeout(aapl, 20000); // 60,000 = 60 seconds == 1minute
+    setTimeout(aapl, 1000); // 60,000 = 60 seconds == 1minute
 }
 
 aapl();
@@ -79,7 +62,7 @@ async function spy() {
     fs.writeFileSync("./public/spyPercentChange.csv", PercentChange)
 
     console.log(Price)
-    setTimeout(spy, 20000); // 60,000 = 60 seconds == 1minute
+    setTimeout(spy, 1000); // 60,000 = 60 seconds == 1minute
 }
 
 spy();
@@ -99,7 +82,7 @@ async function nvda() {
     fs.writeFileSync("./public/nvdaPercentChange.csv", PercentChange)
 
     console.log(Price)
-    setTimeout(nvda, 20000); // 60,000 = 60 seconds == 1minute
+    setTimeout(nvda, 1000); // 60,000 = 60 seconds == 1minute
 }
 
 nvda();
