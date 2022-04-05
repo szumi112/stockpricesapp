@@ -15,9 +15,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node public/index.js",
+    "client": "npm start public/index.html"
+    
   },
   "eslintConfig": {
     "extends": [
@@ -38,6 +39,7 @@
     ]
   },
   "devDependencies": {
+    "concurrently": "^7.1.0",
     "netlify-cli": "^9.16.3",
     "nodemon": "^2.0.15"
   }
