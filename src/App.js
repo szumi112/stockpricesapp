@@ -1,69 +1,60 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import Coin from './Coin'
-import './coin.css'
-
+// import React, { useState, useEffect } from 'react'
+import "bootstrap/dist/css/bootstrap.min.css"
+import Button from 'react-bootstrap/Button';
+import {useEffect, useState} from 'react';
 
 function App() {
-
-  const [coins, setCoins] = useState([])
-  const [search, setSearch] = useState('')
+  const [stocks, setStocks] = useState([
+    {
+      symbol: "",
+      price: "",
+      percentChange: "",
+    }
+  ])
 
   useEffect(() => {
-    axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false')
-    .then(res => {
-      setCoins(res.data)
-    })
-    .catch(error => (console.log(error)))
-  })
+    fetch("http://localhost:3001/")
+    .then((res) => res.json())
+    .then((res) => setStocks(res))
+  }, []);
 
-  const handleChange = e => {
-    setSearch(e.target.value)
-  }
 
-  const filteredCoins = coins.filter(coin =>
-  coin.name.toLowerCase().includes(search.toLowerCase()))
 
+
+
+      
+      //wordToArr(resp);
+      //if(arr[1] == "+") {
+      //document.querySelector(".percentchangetsla").style.color = "green"
+      //} else if (arr[1] == "-") {
+       //   document.querySelector(".percentchangetsla").style.color = "red";
+      //} else {
+        //  document.querySelector(".percentchangetsla").style.color = "black"
+      //}}
 
   return (
-    <div className="coin-app">
-      <div className='coin-search'>
-        <h1 className='coin-text'>
-          Search a currency 
-          </h1>
-          <form>
-            <input type='text' placeholder='Search' className='coin-input' onChange={handleChange}>
+    <div className="App">
+    {stocks.map(stock => {
 
-            </input>
-          </form>
-      </div>
-      <div className='coin-description'>
-          <ul>
-            <div className="coin">
-            <li className>Logo</li>
-            <li>Name</li>
-            <li>Symbol</li>
-            </div>
-            <div className="coin-data">
-              <li>Price</li>
-              <li>Market Cap</li>
-              <li>24h Change</li>
-            </div>
-          </ul>
+      const wordToArr = function(str) {
+        return [...str]
+      };
+      const arr = wordToArr(stock.percentChange);
+
+      return(
+        <div className="stock" key={stock.symbol}>
+          <h1>{stock.symbol}</h1>
+          <p>{stock.price}</p>
+          {arr[1] === "+" ? (
+          <p className="greenPercent">{stock.percentChange}</p>
+          ) : (
+            <p className="redPercent">{stock.percentChange}</p>
+          )
+          }
         </div>
-      {filteredCoins.map(coin => {
-        return (
-          <Coin 
-          key={coin.id}
-          name={coin.name}
-          image={coin.image}
-          symbol={coin.symbol}
-          marketCap={coin.market_cap}
-          price={coin.current_price}
-          priceChange={coin.price_change_percentage_24h}
-          />
-        )
-      })}
+      )
+    })}
+    <Button variant="light">Allo</Button>
     </div>
   );
 }

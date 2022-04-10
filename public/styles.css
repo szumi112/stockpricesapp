@@ -6,6 +6,8 @@
 
 body {
     overflow-x: hidden;
+    width: 100vw;
+    height: 100vh;
 }
 
 .sitewrapper {
@@ -13,10 +15,26 @@ body {
     background-position: center;
     background-size: cover;
     width: 100%;
-    height: 100%;
+    height: 120%;
     min-height: 100vh;
     animation: animateBg 5s linear infinite;
     position: relative;
+    z-index: -1;
+    margin: 0 auto;
+    padding-top: 40px;
+}
+
+#root {
+    z-index: 10 !important;
+    margin: 0 auto;
+    padding: 0;
+    width: 900px;
+    align-items: center;
+    text-align: center;
+}
+
+.App {
+    color: white;
 }
 
 @keyframes animateBg 
@@ -27,7 +45,7 @@ body {
     }
     50%
     {
-        transform: scale(1.05);
+        transform: scale(1.03);
     }
 }
 
@@ -131,120 +149,10 @@ body {
     }
 }
 
-.stockwrapper {
-
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        width: 900px;
-        margin: 0 auto;
-        padding-top: 40px;
+.redPercent {
+    color: red;
 }
 
-.tsla, .aapl, .spy, .nvda {
-    text-align: center;
-    margin: 30px auto 0px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.55);
-    padding: 20px 95px;
-    border: 1px solid rgba(0, 221, 255, 0.19);
-    border-radius: 0px;
-    box-shadow: 0px 0px 35px rgba(13, 18, 52, 0.99);
-
-    
-
+.greenPercent {
+    color: green;
 }
-
-.symbol {
-    margin-bottom: 5px;
-    color: rgb(203, 203, 203);
-}
-
-.prices {
-    display: flex;
-}
-
-.price {
-    color: rgb(213, 213, 213) !important;
-    font-weight: bold;
-    font-size: 2.5rem;
-    margin-top: 10px;
-    text-shadow: 0px 0px 25px rgba(0, 0, 0, 0.9);
-} 
-
-.percentage {
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    margin: 30px 0 0 15px !important;
-    font-weight: 600 !important;
-    letter-spacing: 1px !important;
-    font-size: 1rem !important;
-}
-
-@media (max-width: 1380px) {
-    .stockwrapper {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    width: 900px;
-    margin: 0 auto;
-    padding-top: 40px;
-    }
-    .tsla, .aapl, .spy, .nvda {
-        text-align: center;
-        margin: 30px auto 0px;
-        display: flex;
-        align-items: center;
-        background-color: rgba(0, 0, 0, 0.55);
-        padding: 20px 95px;
-        border: 1px solid rgba(0, 221, 255, 0.29);
-        border-radius: 0px !important;
-        box-shadow: 0px 0px 35px rgba(13, 18, 52, 0.99);
-    }
-    .symbol {
-        margin-bottom: 5px;
-    }
-
-    .prices {
-        display: flex;
-    }
-
-    .price {
-        color: rgb(213, 213, 213) !important;
-        font-weight: bold;
-        font-size: 2.5rem;
-        margin-top: 10px;
-        text-shadow: 0px 0px 25px rgba(0, 0, 0, 0.9);
-    } 
-
-    .percentage {
-        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        margin: 30px 0 0 15px !important;
-        font-weight: 600 !important;
-        letter-spacing: 1px !important;
-        font-size: 1rem !important;
-    }
-}
-
-@media (max-width: 980px) {
-    .tsla, .aapl, .spy, .nvda {
-        padding: 10px 55px;
-        margin-top: 20px;
-    }
-    
-    .stockwrapper {
-        padding-top: 25px;
-        width: 100%;
-    }
-}
-
-@media (max-width: 700px) {
-    .stockwrapper {
-        display: flex;
-        flex-direction: column;
-        margin: 0 auto;
-    }
-
-
-
- }

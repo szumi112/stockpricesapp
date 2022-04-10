@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
-
+import "bootstrap/dist/css/bootstrap.min.css"
 
 /*
 
 "start": "react-scripts start",
-"build": "concurrently \"npm run server\" \"react-scripts build\",
+"build": "react-scripts build",
 "test": "react-scripts test",
 "eject": "react-scripts eject",
 "server": "node public/index.js",
