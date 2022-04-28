@@ -299,10 +299,11 @@ async function deleteStock(stonkSymbol) {
 app.use(cors({
     origin: "*"
 }));
-//To parse URL encoded data
+
+//Parse URL encoded data
 app.use(bodyParser.urlencoded({ extended: false }))
 
-//To parse json data
+//Parse json data
 app.use(bodyParser.json())
 
 // DATABASE
