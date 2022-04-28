@@ -1,23 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client'
 import App from './App';
 import StockSearchBar from './Components/StockSearchBar';
-
 import "bootstrap/dist/css/bootstrap.min.css"
 import HowTo from './Components/HowTo';
 import SpecialChars from './Components/SpecialChars'
 import RefreshPage from './Components/RefreshPage';
 
-
-ReactDOM.render(
-  <React.StrictMode>
-    
+const rootElement = document.getElementById("root");
+const root = createRoot(rootElement);
+root.render(
+  <>
     <App />
     <StockSearchBar />
     <HowTo />
     <SpecialChars />
-    
-    
-  </React.StrictMode>,
-  document.getElementById('root')
+  </>  
 );
