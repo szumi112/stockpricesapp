@@ -34,6 +34,7 @@ const StockSearchBar = () => {
   
       const response = fetch(`http://localhost:${PORT}/search`, options);
       console.log("search entered");
+      console.log(response)
     };
       /*
       .then(

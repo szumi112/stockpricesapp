@@ -38,6 +38,7 @@ function App() {
   
       const response = fetch(`http://localhost:${PORT}/delete`, options);
       console.log("stock deleted");
+      console.log(response);
     };
 }
 
@@ -58,6 +59,7 @@ const handleRefresh = (e) => {
 
     const response = fetch(`http://localhost:${PORT}/refresh`, options);
     console.log("price refreshed");
+    console.log(response);
   };
 }
 
@@ -65,46 +67,39 @@ const handleRefresh = (e) => {
 const uniqueStocks = Array.from(stocks.reduce((map, obj) => 
         map.set(obj.symbol, obj), new Map()).values());
 
+        const wordToArr = function(str) {
+          return [...str]
+        };
 
   return (
-    <>
-    <div className="App">
-    {uniqueStocks.map(stock => {
+            <div className="App">
+            {uniqueStocks.map(stock => {
 
-      
-      
+              const arr = wordToArr(stock.percentChange);
 
-      const wordToArr = function(str) {
-        return [...str]
-      };
-      const arr = wordToArr(stock.percentChange);
-
-      return(
-        (stock.price ? (
-        <div 
-        className="stock"
-        key={stock.symbol}
-        >
-          <h1>{stock.symbol.toUpperCase()}</h1>
-          <p className="stockPrice">${stock.price}</p>
-          {arr[1] === "+" ? (
-          <p className="greenPercent">{stock.percentChange}</p>
-          ) : (
-            <p className="redPercent">{stock.percentChange}</p>
-          )
-          } 
-          <button className="deleteBtn" data-value={stock.symbol} onClick={handleDelete}>x</button>
-          <button className="refreshBtn" data-value={stock.symbol} onClick={handleRefresh}></button>
-        </div>
-          
-        ) : (
-          <>
-          </>
-        ))
-      )
-    })} 
-    </div>
-    </>
+              return(
+                (stock.price ? (
+                <div className="stock" key={stock.symbol}>
+                
+                  <h1>{stock.symbol.toUpperCase()}</h1>
+                  <p className="stockPrice">${stock.price}</p>
+                  {arr[1] === "+" ? (
+                  <p className="greenPercent">{stock.percentChange}</p>
+                  ) : (
+                    <p className="redPercent">{stock.percentChange}</p>
+                  )
+                  } 
+                  <button className="deleteBtn" data-value={stock.symbol} onClick={handleDelete}>x</button>
+                  <button className="refreshBtn" data-value={stock.symbol} onClick={handleRefresh}></button>
+                </div>
+                ) : (
+                  <div key={stock.symbol}>
+                  </div>
+                ))
+              )
+            })} 
+            allo
+            </div>
   );
 }
 
