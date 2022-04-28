@@ -18,7 +18,7 @@ function App() {
     fetch(`http://localhost:${PORT}/`)
     .then((res) => res.json())
     .then((res) => setStocks(res))
-  }, 1000,[]); 
+  },[]); 
 
 
   const handleDelete = (e) => {

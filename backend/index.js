@@ -286,7 +286,7 @@ async function deleteStock(stonkSymbol) {
     await Stock.findOneAndRemove({symbol: stonkSymbol},
         function (err) {
         if (err) {
-        console.log(err)
+        console.log("Couldnt delete entry: " + err)
         } else {
         console.log("Removed: " + stonkSymbol);
 }
