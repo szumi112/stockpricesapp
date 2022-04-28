@@ -1,40 +1,78 @@
-// import React, { useState, useEffect } from 'react'
 import "bootstrap/dist/css/bootstrap.min.css"
-import Button from 'react-bootstrap/Button';
 import {useEffect, useState} from 'react';
+const PORT = process.env.PORT || 3001;
+
+
 
 function App() {
+  
   const [stocks, setStocks] = useState([
     {
       symbol: "",
       price: "",
       percentChange: "",
     }
-  ])
+  ]);
 
   useEffect(() => {
-    fetch("http://localhost:3001/")
+    fetch(`http://localhost:${PORT}/`)
     .then((res) => res.json())
     .then((res) => setStocks(res))
-  }, []);
+  }, 1000,[]); 
 
 
+  const handleDelete = (e) => {
+    e.preventDefault();
+    const res = e.target.dataset.value;
+
+    if (stocks !== '') {
+      setTimeout(() => window.location.reload(), 1000);
+      const options = 
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type':  'application/json'
+        },
+        body: JSON.stringify({res}),
+      };
+  
+      const response = fetch(`http://localhost:${PORT}/delete`, options);
+      console.log("stock deleted");
+    };
+}
+
+const handleRefresh = (e) => {
+  e.preventDefault();
+  const res = e.target.dataset.value;
+
+  if (stocks !== '') {
+    setTimeout(() => window.location.reload(), 4000);
+    const options = 
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type':  'application/json'
+      },
+      body: JSON.stringify({res}),
+    };
+
+    const response = fetch(`http://localhost:${PORT}/refresh`, options);
+    console.log("price refreshed");
+  };
+}
 
 
+const uniqueStocks = Array.from(stocks.reduce((map, obj) => 
+        map.set(obj.symbol, obj), new Map()).values());
 
-      
-      //wordToArr(resp);
-      //if(arr[1] == "+") {
-      //document.querySelector(".percentchangetsla").style.color = "green"
-      //} else if (arr[1] == "-") {
-       //   document.querySelector(".percentchangetsla").style.color = "red";
-      //} else {
-        //  document.querySelector(".percentchangetsla").style.color = "black"
-      //}}
 
   return (
+    <>
     <div className="App">
-    {stocks.map(stock => {
+    {uniqueStocks.map(stock => {
+
+      
+      
 
       const wordToArr = function(str) {
         return [...str]
@@ -42,20 +80,31 @@ function App() {
       const arr = wordToArr(stock.percentChange);
 
       return(
-        <div className="stock" key={stock.symbol}>
-          <h1>{stock.symbol}</h1>
-          <p>{stock.price}</p>
+        (stock.price ? (
+        <div 
+        className="stock"
+        key={stock.symbol}
+        >
+          <h1>{stock.symbol.toUpperCase()}</h1>
+          <p className="stockPrice">${stock.price}</p>
           {arr[1] === "+" ? (
           <p className="greenPercent">{stock.percentChange}</p>
           ) : (
             <p className="redPercent">{stock.percentChange}</p>
           )
-          }
+          } 
+          <button className="deleteBtn" data-value={stock.symbol} onClick={handleDelete}>x</button>
+          <button className="refreshBtn" data-value={stock.symbol} onClick={handleRefresh}></button>
         </div>
+          
+        ) : (
+          <>
+          </>
+        ))
       )
-    })}
-    <Button variant="light">Allo</Button>
+    })} 
     </div>
+    </>
   );
 }
 

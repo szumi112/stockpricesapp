@@ -8,20 +8,26 @@ const express = require("express");
 const cors = require("cors");
 const cron = require('node-cron');
 const app = express();
+const port = process.env.PORT || 3001;
+const bodyParser = require('body-parser');
+const { db, update } = require("./model/Stock");
+const arrayOfSearchResults = [];
 
 
 async function connectToMongoDB() {
     await mongoose.connect("mongodb+srv://szumi112:szumek112@cluster0.ctjxj.mongodb.net/Cluster0?retryWrites=true&w=majority");
-    console.log("connected to mongodb");
+    // console.log("connected to mongodb");
 };
 
 
 //WEB-SCRAPE || FETCH CURRENT STOCK DATA
+
+/*
 async function tsla() {
 
 
     const html = await request.get(
-        "https://finance.yahoo.com/quote/BTC-USD/"
+        "https://finance.yahoo.com/quote/tsla/"
         );
 
     const $ = await cheerio.load(html);
@@ -43,13 +49,14 @@ async function tsla() {
     // await listingModel.save();
 
     // UPDATE stock price if it changed
+    /*
     await Stock.findOneAndUpdate(
         {
-            symbol: "Tesla (TSLA)",
+            symbol: Symbol,
         }, 
         {
         price: Price, 
-        symbol: "Tesla (TSLA)", 
+        symbol: Symbol, 
         percentChange: PercentChange,
         },
         {
@@ -60,7 +67,7 @@ async function tsla() {
     
     
         console.log(Price)
-    setTimeout(tsla, 30000); // 60 seconds == 1minute // not needed with node-cron
+    setTimeout(tsla, 10000); // 60 seconds == 1minute // not needed with node-cron
 
 
     
@@ -69,11 +76,12 @@ async function tsla() {
 
 tsla();
 
-async function aapl() {
+
+async function btc() {
 
 
     const html = await request.get(
-        "https://finance.yahoo.com/quote/AAPL/"
+        "https://finance.yahoo.com/quote/BTC-USD/"
         );
 
     const $ = await cheerio.load(html);
@@ -96,13 +104,14 @@ async function aapl() {
     */
 
     // UPDATE stock price if it changed
+    /*
     await Stock.findOneAndUpdate(
         {
-            symbol: "Apple (AAPL)",
+            symbol: Symbol,
         }, 
         {
         price: Price, 
-        symbol: "Apple (AAPL)", 
+        symbol: Symbol, 
         percentChange: PercentChange,
         },
         {
@@ -113,13 +122,14 @@ async function aapl() {
     
 
     console.log(Price)
-    setTimeout(aapl, 30000); // 60,000 = 60 seconds == 1minute // not needed with node-cron
+    setTimeout(btc, 10000); // 60,000 = 60 seconds == 1minute // not needed with node-cron
     
 }
 
-aapl();
+btc();
+*/
 
-
+/*
 async function spy() {
 
 
@@ -137,7 +147,7 @@ async function spy() {
     await connectToMongoDB();
 
     console.log(Price)
-    setTimeout(spy, 30000); // 60,000 = 60 seconds == 1minute // not needed with node-cron
+    setTimeout(spy, 1000000); // 60,000 = 60 seconds == 1minute // not needed with node-cron
 
     /*const listingModel = new Spy({
         price: Price, 
@@ -148,13 +158,14 @@ async function spy() {
     await listingModel.save(); */
 
     // UPDATE stock price if it changed
+    /*
     await Stock.findOneAndUpdate(
         {
-            symbol: "SPDR S&P 500 ETF (SPY)",
+            symbol: "SPY",
         }, 
         {
         price: Price, 
-        symbol: "SPDR S&P 500 ETF (SPY)", 
+        symbol: "SPY", 
         percentChange: PercentChange,
         },
         {
@@ -182,7 +193,7 @@ async function nvda() {
     await connectToMongoDB();
 
     console.log(Price)
-     setTimeout(nvda, 30000); // 60,000 = 60 seconds == 1minute // not needed with node-cron
+     setTimeout(nvda, 1000000); // 60,000 = 60 seconds == 1minute // not needed with node-cron
 
 
    /* const listingModel = new Nvda({
@@ -194,13 +205,14 @@ async function nvda() {
     await listingModel.save(); */
 
     // UPDATE stock price if it changed
+    /*
     await Stock.findOneAndUpdate(
         {
-            symbol: "NVIDIA (NVDA)",
+            symbol: "NVDA",
         }, 
         {
         price: Price, 
-        symbol: "NVIDIA (NVDA)", 
+        symbol: "NVDA", 
         percentChange: PercentChange,
         },
         {
@@ -209,14 +221,89 @@ async function nvda() {
         );
 }
 
-nvda();
+nvda(); 
 
- 
+*/
+
+
+
+
+async function fetchPrice(userSymbol) {
+
+    const html = await request.get(
+        `https://finance.yahoo.com/quote/${userSymbol}/`
+        );
+        
+
+    const $ = await cheerio.load(html);
+
+    const Price = $('[class="Fw(b) Fz(36px) Mb(-4px) D(ib)"]').text();
+    const Symbol = $('[class="D(ib) Fz(18px)"]').text();
+    const PercentChange = $('fin-streamer[class="Fw(500) Pstart(8px) Fz(24px)"][data-field="regularMarketChangePercent"]').find('span').text();
+
+
+    await connectToMongoDB();
+    
+    if (Stock.exists({symbol: userSymbol})) {
+
+        // UPDATE stock price if it changed
+
+        await Stock.findOneAndUpdate(
+            {
+                symbol: userSymbol,
+            }, 
+            {
+            price: Price, 
+            symbol: userSymbol, 
+            percentChange: PercentChange,
+            },
+            {
+                upsert: true,
+            },
+            );
+    
+            console.log("Updated: " + Price)
+            //setTimeout(() => fetchPrice, 2500); // 60 seconds == 1minute
+            //setTimeout(() => userSymbol, 2500); // 60 seconds == 1minute
+            //setTimeout(() => fetchPrice(), 2500); // 60 seconds == 1minute
+            setTimeout(() => fetchPrice(userSymbol), 10000); // 60 seconds == 1minute
+
+        
+    }  else {
+
+        const listingModel = await new Stock({
+            price: Price, 
+            symbol: Symbol, 
+            percentChange: PercentChange,
+        })
+
+        console.log("Added: " + result)
+
+}; 
+}
+
+async function deleteStock(stonkSymbol) {
+    await Stock.findOneAndRemove({symbol: stonkSymbol},
+        function (err) {
+        if (err) {
+        console.log(err)
+        } else {
+        console.log("Removed: " + stonkSymbol);
+}
+}).clone();
+}
+
 
 //MIDDLEWARE
-app.use(express.json());
-app.use(cors());
-app.use(express.urlencoded({extended: true}));
+
+app.use(cors({
+    origin: "*"
+}));
+//To parse URL encoded data
+app.use(bodyParser.urlencoded({ extended: false }))
+
+//To parse json data
+app.use(bodyParser.json())
 
 // DATABASE
 
@@ -226,11 +313,56 @@ app.get("/", (req, res) => {
     ).catch(err => console.log(err))
 });
 
-app.listen(3001, function () {
-    console.log("Server is running...");
+
+
+app.get("/search", (req, res) => {
+
+    res.json("Nothing to see here");
+    
+});
+
+app.get("/refresh", (req, res) => {
+
+    res.json("Nothing to see here");
+    
+});
+
+app.get("/delete", (req, res) => {
+    res.json("Delete server page - nothing to see here")
+})
+
+app.post("/search", async (req, res) => {
+
+    const result = req.body.userInput;
+    fetchPrice(result);
+    
+    
+    /*arrayOfSearchResults.push(result);
+    console.log("Results are: " + arrayOfSearchResults);
+    
+    for (let i = 0; i < arrayOfSearchResults.length; i++) {
+        fetchPrice(arrayOfSearchResults[i]);
+    }
+    */
+});
+
+app.post("/refresh", async (req, res) => {
+
+    const refresh = req.body.res;
+    fetchPrice(refresh);
+
+});
+
+app.post("/delete/", async (req, res)=> {
+    const stonkSymbol = req.body.res;
+    res.send({
+        stonkSymbol,
+    });
+    console.log(stonkSymbol);
+    deleteStock(stonkSymbol);
 });
 
 
-
-  
-  // node index.js
+app.listen(port, function () {
+    console.log("Server is running...");
+});

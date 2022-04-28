@@ -1,23 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import StockSearchBar from './Components/StockSearchBar';
+
 import "bootstrap/dist/css/bootstrap.min.css"
+import HowTo from './Components/HowTo';
+import SpecialChars from './Components/SpecialChars'
+import RefreshPage from './Components/RefreshPage';
 
-/*
-
-"start": "react-scripts start",
-"build": "react-scripts build",
-"test": "react-scripts test",
-"eject": "react-scripts eject",
-"server": "node public/index.js",
-"client": "npm start index.js",
-"dev": "concurrently \"npm run server\" \"npm run client\""
-
-*/
 
 ReactDOM.render(
   <React.StrictMode>
+    
     <App />
+    <StockSearchBar />
+    <HowTo />
+    <SpecialChars />
+    
+    
   </React.StrictMode>,
   document.getElementById('root')
 );
