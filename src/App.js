@@ -15,7 +15,7 @@ function App() {
   ]);
 
   useEffect(() => {
-    fetch("/")
+    fetch("mern-stack-stonkzzz.herokuapp.com/")
     .then((res) => res.json())
     .then((res) => setStocks(res))
   },[]); 
@@ -36,7 +36,7 @@ function App() {
         body: JSON.stringify({res}),
       };
   
-      const response = fetch("/delete", options);
+      const response = fetch("mern-stack-stonkzzz.herokuapp.com/delete", options);
       console.log("stock deleted");
       console.log(response);
     };
@@ -57,7 +57,7 @@ const handleRefresh = (e) => {
       body: JSON.stringify({res}),
     };
 
-    const response = fetch("/refresh", options);
+    const response = fetch("mern-stack-stonkzzz.herokuapp.com/refresh", options);
     console.log("price refreshed");
     console.log(response);
   };

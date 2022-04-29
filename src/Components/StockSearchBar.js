@@ -32,7 +32,7 @@ const StockSearchBar = () => {
         body: JSON.stringify({userInput}),
       };
   
-      const response = fetch("/search", options);
+      const response = fetch("mern-stack-stonkzzz.herokuapp.com/search", options);
       console.log("search entered");
       console.log(response)
     };
