@@ -35,7 +35,7 @@ function App() {
         body: JSON.stringify({res}),
       };
   
-      const response = fetch(`https://stonksappp.herokuapp.com/delete`, options);
+      const response = fetch(`/delete`, options);
       console.log("stock deleted");
       console.log(response);
     };
@@ -56,7 +56,7 @@ const handleRefresh = (e) => {
       body: JSON.stringify({res}),
     };
 
-    const response = fetch(`https://stonksappp.herokuapp.com/refresh`, options);
+    const response = fetch(`/refresh`, options);
     console.log("price refreshed");
     console.log(response);
   };
