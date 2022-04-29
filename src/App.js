@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css"
 import {useEffect, useState} from 'react';
-const baseUrl = process.env.baseURL || "http://localhost:3001"
+// const baseUrl = process.env.baseURL || "http://localhost:3001"
 
 
 
@@ -15,7 +15,7 @@ function App() {
   ]);
 
   useEffect(() => {
-    fetch(`${baseUrl}/`)
+    fetch("/")
     .then((res) => res.json())
     .then((res) => setStocks(res))
   },[]); 
@@ -36,7 +36,7 @@ function App() {
         body: JSON.stringify({res}),
       };
   
-      const response = fetch(`${baseUrl}/delete`, options);
+      const response = fetch("/delete", options);
       console.log("stock deleted");
       console.log(response);
     };
@@ -57,7 +57,7 @@ const handleRefresh = (e) => {
       body: JSON.stringify({res}),
     };
 
-    const response = fetch(`${baseUrl}/refresh`, options);
+    const response = fetch("/refresh", options);
     console.log("price refreshed");
     console.log(response);
   };
