@@ -1,6 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css"
 import {useEffect, useState} from 'react';
-const PORT = process.env.PORT || 3001;
 
 
 
@@ -15,7 +14,7 @@ function App() {
   ]);
 
   useEffect(() => {
-    fetch(`http://localhost:${PORT}/`)
+    fetch(`https://practice-mern-stocks.herokuapp.com/`)
     .then((res) => res.json())
     .then((res) => setStocks(res))
   },[]); 
@@ -36,7 +35,7 @@ function App() {
         body: JSON.stringify({res}),
       };
   
-      const response = fetch(`http://localhost:${PORT}/delete`, options);
+      const response = fetch(`https://practice-mern-stocks.herokuapp.com/`, options);
       console.log("stock deleted");
       console.log(response);
     };
@@ -57,7 +56,7 @@ const handleRefresh = (e) => {
       body: JSON.stringify({res}),
     };
 
-    const response = fetch(`http://localhost:${PORT}/refresh`, options);
+    const response = fetch(`https://practice-mern-stocks.herokuapp.com/`, options);
     console.log("price refreshed");
     console.log(response);
   };
@@ -98,7 +97,6 @@ const uniqueStocks = Array.from(stocks.reduce((map, obj) =>
                 ))
               )
             })} 
-            allo
             </div>
   );
 }

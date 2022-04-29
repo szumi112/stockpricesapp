@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Button from 'react-bootstrap/Button';
-const PORT = process.env.PORT || 3001;
+
 
 const StockSearchBar = () => {
 
@@ -32,7 +32,7 @@ const StockSearchBar = () => {
         body: JSON.stringify({userInput}),
       };
   
-      const response = fetch(`http://localhost:${PORT}/search`, options);
+      const response = fetch(`https://practice-mern-stocks.herokuapp.com/`, options);
       console.log("search entered");
       console.log(response)
     };
