@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Button from 'react-bootstrap/Button';
-
+const PORT = process.env.PORT || 3001;
+const baseUrl = process.env.baseURL || "http://localhost:3001"
 
 const StockSearchBar = () => {
 
@@ -32,7 +33,7 @@ const StockSearchBar = () => {
         body: JSON.stringify({userInput}),
       };
   
-      const response = fetch(`/search`, options);
+      const response = fetch(`${baseUrl}${PORT}/search`, options);
       console.log("search entered");
       console.log(response)
     };

@@ -8,10 +8,12 @@ const express = require("express");
 const cors = require("cors");
 const cron = require('node-cron');
 const app = express();
-const port = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3001;
 const bodyParser = require('body-parser');
 const { db, update } = require("./model/Stock");
 const arrayOfSearchResults = [];
+
+require('dotenv').config()
 
 
 async function connectToMongoDB() {
@@ -364,6 +366,6 @@ app.post("/delete/", async (req, res)=> {
 });
 
 
-app.listen(port, function () {
+app.listen(PORT, function () {
     console.log("Server is running...");
 });
