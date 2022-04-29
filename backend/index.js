@@ -12,12 +12,14 @@ const PORT = process.env.PORT || 3001;
 const bodyParser = require('body-parser');
 const { db, update } = require("./model/Stock");
 const arrayOfSearchResults = [];
+const uri = process.env.MONGODB_URI
+const path = require('path');
 
 require('dotenv').config()
 
 
 async function connectToMongoDB() {
-    await mongoose.connect("mongodb+srv://szumi112:szumek112@cluster0.ctjxj.mongodb.net/Cluster0?retryWrites=true&w=majority");
+    await mongoose.connect(uri || "mongodb+srv://szumi112:szumek112@cluster0.ctjxj.mongodb.net/Cluster0?retryWrites=true&w=majority");
     // console.log("connected to mongodb");
 };
 
@@ -365,7 +367,17 @@ app.post("/delete/", async (req, res)=> {
     deleteStock(stonkSymbol);
 });
 
+if (process.env.NODE_ENV === 'production') {
+app.use(express.static('/public/build'));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'public', 'build', 'index.html'));
+});
+    
+}
+
 
 app.listen(PORT, function () {
     console.log("Server is running...");
 });
+
