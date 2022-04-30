@@ -28,7 +28,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "build": "cd public && npm run build",
+    "build": "npm start",
     "install-public": "cd public && npm install",
     "heroku-postbuild": "npm run install-public && npm run build",
     "start": "node backend/index.js",
