@@ -4,8 +4,12 @@
   "engines": { "node": "16.14.2", "npm": "6.14.16" },
   "main": "index.js",
   "scripts": {
+    "public-install": "npm install --prefix public",
     "start": "node index.js",
-    "dev": "nodemon server.js"
+    "server": "node index.js",
+    "public": "npm start --prefix public",
+    "dev": "concurrently \"npm run server\" \"npm run public\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix public && npm run build --prefix public"
   },
   "keywords": [],
   "author": "",
