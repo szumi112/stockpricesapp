@@ -12,16 +12,19 @@ const PORT = process.env.PORT || 3001;
 const bodyParser = require('body-parser');
 const { db, update } = require("./model/Stock");
 const arrayOfSearchResults = [];
-const uri = process.env.MONGODB_URI
+const URI = process.env.URI;
 const path = require('path');
 
 require('dotenv').config()
 
 
 async function connectToMongoDB() {
-    await mongoose.connect(uri || "mongodb+srv://szumi112:szumek112@cluster0.ctjxj.mongodb.net/Cluster0?retryWrites=true&w=majority");
-    // console.log("connected to mongodb");
+    await mongoose.connect("mongodb+srv://szumi112:szumek112@cluster0.ctjxj.mongodb.net/Cluster0?retryWrites=true&w=majority");
+    console.log("connected to db");
 };
+
+connectToMongoDB();
+
 
 
 //WEB-SCRAPE || FETCH CURRENT STOCK DATA
@@ -304,15 +307,28 @@ app.use(cors({
     origin: "*"
 }));
 
+// static frontend
+app.use(express.static("public"));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+});
+
 //Parse URL encoded data
 app.use(bodyParser.urlencoded({ extended: false }))
 
 //Parse json data
-app.use(bodyParser.json())
+ app.use(bodyParser.json())
 
 // DATABASE
 
-app.get("/", (req, res) => {
+
+
+
+
+
+
+app.get("/api", (req, res) => {
     Stock.find({}).then(
         items => res.json(items)
     ).catch(err => console.log(err))
@@ -320,23 +336,23 @@ app.get("/", (req, res) => {
 
 
 
-app.get("/search", (req, res) => {
+app.get("/api/search", (req, res) => {
 
     res.json("Nothing to see here");
     
 });
 
-app.get("/refresh", (req, res) => {
+app.get("/api/refresh", (req, res) => {
 
     res.json("Nothing to see here");
     
 });
 
-app.get("/delete", (req, res) => {
+app.get("/api/delete", (req, res) => {
     res.json("Delete server page - nothing to see here")
 })
 
-app.post("/search", async (req, res) => {
+app.post("/api/search", async (req, res) => {
 
     const result = req.body.userInput;
     fetchPrice(result);
@@ -351,14 +367,14 @@ app.post("/search", async (req, res) => {
     */
 });
 
-app.post("/refresh", async (req, res) => {
+app.post("/api/refresh", async (req, res) => {
 
     const refresh = req.body.res;
     fetchPrice(refresh);
 
 });
 
-app.post("/delete/", async (req, res)=> {
+app.post("/api/delete", async (req, res)=> {
     const stonkSymbol = req.body.res;
     res.send({
         stonkSymbol,
@@ -366,15 +382,6 @@ app.post("/delete/", async (req, res)=> {
     console.log(stonkSymbol);
     deleteStock(stonkSymbol);
 });
-
-if (process.env.NODE_ENV === 'production') {
-app.use(express.static('/public'));
-
-app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
-});
-    
-}
 
 
 app.listen(PORT, function () {
