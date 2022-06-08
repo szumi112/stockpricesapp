@@ -5,16 +5,30 @@
 }
 
 html {
-    background-color: rgb(22, 31, 38);
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-color: rgb(37, 56, 70);
+    padding: env(safe-area-inset-top, 30px) env(safe-area-inset-right, 55px) env(safe-area-inset-bottom, 30px) env(safe-area-inset-left, 55px);
+    margin: 0;
+    padding: 0;
+    min-width: 100vw;
+    min-height: 100vh;
 }
 
 
 #wrapper {
-    background-color: rgb(22, 31, 38);
-    margin: 50px auto 0;
+    background-color: rgb(37, 56, 70);
+    margin: 0px auto 0px;
     height: 100%;
     width: 100%;
-    padding: 0;
+    min-width: 100vw;
+    min-height: 100vh;
+    padding: 50px 0;
 }
 
 #root {
@@ -32,7 +46,8 @@ html {
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
-    margin: 0px auto 50px;
+    margin: 125px auto;
+    max-width: 1100px;
 }
 
 
@@ -49,7 +64,7 @@ html {
 .searchBar {
     display: flex;
     flex-direction: column;
-    margin: 50px auto;
+    margin: 0px auto 100px;
 }
 
 .searchBar label {
@@ -69,11 +84,17 @@ html {
 }
 
 .stock {
-    background-color: rgba(0,0,0,0.4);
-    padding-top: 15px;
+    background-color: rgba(0,0,0,0.50);
+    padding: 15px auto 0;
     width: 30%;
     min-width: 255px;
     position: relative;
+    margin: 15px auto;
+}
+
+.displaynone {
+    width: 0;
+    display: none;
 }
 
 .stock:hover {
@@ -96,14 +117,31 @@ html {
     border: none;
     color: rgba(67, 67, 67, 0.75);
     position: absolute;
-    top: 0;
+    top: -5px;
     right: 10px;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    text-shadow: 1px 1px 2px rgb(19, 19, 19);
-    font-size: 18px;
+    text-shadow: 1px 1px 2px rgba(19, 19, 19, 0.5);
+    font-size: 24px;
 }
 
 .deleteBtn:hover {
+    color: rgb(159, 0, 0);
+}
+
+.deleteBtnCoin {
+    background: none;
+    border: none;
+    color: rgba(67, 67, 67, 0.75);
+    position: absolute;
+    top: -4px;
+    right: -110px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-shadow: 1px 1px 2px rgba(19, 19, 19, 0.5);
+    font-size: 24px;
+    cursor: default !important;
+}
+
+.deleteBtnCoin:hover {
     color: rgb(159, 0, 0);
 }
 
@@ -153,8 +191,227 @@ html {
     background: url("refreshicon.png") top center no-repeat;
 }
 
+.refreshBtnCoin {
+    position: absolute;
+    left: -109px;
+    top: 7px;
+    width: 15px;
+    height: 15px;
+    background: none;
+    border: none;
+    transition: all 0.3s ease-in-out;
+    background: url("refreshicon.png") top center no-repeat;
+}
+
 
 .refreshBtn:hover {
     transition: all 0.2s ease-in-out;
     background: url("refreshiconhover.png") top center no-repeat;
 }
+
+.refreshBtnCoin:hover {
+    transition: all 0.2s ease-in-out;
+    background: url("refreshiconhover.png") top center no-repeat;
+}
+
+.chartcont {
+    display: flex;
+    justify-content: center;
+    width: 65%;
+    margin: 0 auto;
+    align-items: center;
+    color: white;
+    max-width: 800px;
+}
+
+@media screen and (max-width: 800px) {
+    .chartcont {
+        width: 80%;
+    }
+
+}
+
+.chartwrapper {
+    color: white;
+}
+
+.nav {
+    color: #fff;
+    margin: 25px auto;
+    padding-bottom: 70px;
+    justify-content: center;
+    height: auto;
+
+}
+
+.nav a {
+    margin: 0 20px;
+    background-color: rgba(34, 45, 52, 0.8);
+    text-decoration: none;
+    width: 100px;
+    height: 35px;
+    color: rgb(152, 152, 152);
+    padding-top: 4px;
+    border-radius: 3px;
+}
+
+
+.nav a.active {
+    background-color: rgb(232, 64, 90);
+    box-shadow: 0px 0px 23px rgba(255, 58, 81, 0.55);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.57);
+}
+
+.nav a:hover {
+    color: rgb(224, 224, 224);
+    background-color: rgb(27, 37, 43);  
+    box-shadow: 0px 0px 22px rgba(27, 37, 43, 0.8);
+}
+
+.nav a:active {
+    background-color: rgb(58, 154, 167);
+}
+
+
+.crypto {
+    color: #fff;
+}
+
+.coin-margin {
+    margin-bottom: 25px;
+}
+
+.cryptoSearch {
+    color: #fff;
+}
+
+.coin {
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin: 40px auto 0;
+    max-width: 1100px;
+}
+
+.coin-container {
+    color: #fff;
+    margin: 50px auto !important;
+    padding: 15px 0 5px;
+    cursor: pointer;
+}
+
+.coin-container img {
+    width: 30px;
+    margin: 5px 0;
+    
+}
+
+.cryptoTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.red {
+    color: #f00606;
+  }
+  
+  .green {
+    color: #11d811;
+  }
+
+  .coin-text {
+      color: white;
+  }
+  
+  .coin-app form {
+    margin: 25px auto 15px;
+  }
+
+  .coin-app Button {
+    width: 250px;
+  }
+
+  .coin-input {
+    padding-left: 8px;
+    height: 37px;
+    width: 250px;
+    margin-bottom: -15px !important;
+  }
+
+  .searchbarComponent {
+      display: flex;
+      width: 250px;
+      height: 45px;
+      margin: 3px auto;
+      justify-content: space-between;
+      background-color: rgba(0,0,0,0.1);
+      border: 1px rgba(0, 0, 0, 0.1) solid;
+  }
+
+  .searchbarComponent:hover {
+    background-color: rgba(0,0,0,0.2);
+  }
+
+  .searchbarComponent p {
+      cursor: pointer;
+      padding: 10px 0 0 7px;
+  }
+
+  .searchbarSuggestionAdd {
+    cursor: pointer;
+    padding: 4px 7px 0 0;
+    font-size: 20px;
+  }
+
+  .cryptoChartDates {
+      color: white;
+      display: flex;
+      justify-content: center;
+      margin: 50px auto 0px;
+      max-width: 80%;
+  }
+
+  .cryptoChartDates button {
+      margin: 0 10px;
+  }
+
+  @media screen and (max-width: 800px) {
+      .cryptoChartDates {
+          display: inline-block;
+      }
+
+      .cryptoChartDates button{
+          margin: 10px;
+      }
+
+      .chartcont {
+          margin-top: 25px;
+      }
+      
+      .coin-search {
+          margin: 10px auto;
+      }
+  }
+
+  .coin-search-horizontal {
+      display: flex;
+      flex-direction: column !important;
+  }
+
+
+  .coin-search h5 {
+    margin: 30px;
+    color:white;
+    font-weight: normal;
+  }
+
+  .coin-search span {
+    color:rgb(255, 175, 132);
+  }
+
+  .boldSpan {
+      font-weight: bold;
+  }

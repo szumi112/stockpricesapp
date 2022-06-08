@@ -1,27 +1,35 @@
-import { useState } from "react";
+// import { useState } from "react";
+import React from 'react';
 import Button from 'react-bootstrap/Button';
-const baseUrl = process.env.baseUrl || "http://localhost:3001"
+import { useContext } from 'react';
+import { SearchContext } from '../searchContext';
+import debounce from 'lodash.debounce';
 
 const StockSearchBar = () => {
-
-  function handleButtonEvents() {
-		handleClick();
+   
+  function handleButtonEvents(e) {
+		debounceOnChange();
     setTimeout(() => window.location.reload(), 3000);
 	}
 
-  const [userInput, setUserInput] = useState("Stock or Crypto Symbol");
+  // const [userInput, setUserInput] = useState("Stock or Crypto Symbol");
+  const [search, setSearch] = useContext(SearchContext);
 
+/*
   const handleSearch = e => {
-    setUserInput(e.target.value)
-  }
+    e.preventDefault();
+    setSearch(e.target.value.toUpperCase())
+  };
+  */
 
+  const updateSearch = e => setSearch(e?.target?.value);
 
+  const debounceOnChange = debounce(updateSearch, 1000);
+
+  /*
   const handleClick = (e) => {
-    
-    
-    
 
-    if (setUserInput !== '') {
+    if (setSearch !== '') {
 
       const options = 
       {
@@ -29,41 +37,33 @@ const StockSearchBar = () => {
         headers: {
           'Content-Type':  'application/json'
         },
-        body: JSON.stringify({userInput}),
+        body: JSON.stringify({search}),
       };
   
-      const response = fetch(`${baseUrl}/api/search`, options);
-      console.log("search entered");
-      console.log(response)
+      const response = fetch(`http://localhost:3001/api/search`, options);
+      console.log("search entered" + response);
     };
-      /*
-      .then(
-        () => {
-          console.log("Search entered");
-        }
-      );
-      */
+  }
+  */
 
-     // console.log(searchResult);
-      }
-
-
-  
   return (
       
       <>
     <div className="searchBar">
+      
       <label>Look for Stocks or Cryptos: </label>
-      <input  type='text' onChange={handleSearch} onKeyPress={(ev) => {
+      <input  type='text' onChange={debounceOnChange} onKeyPress={(ev) => {
         if (ev.key === "Enter") {
           handleButtonEvents();
-        }
-      }
-
-      }
+    }
+  }
+}
+      placeholder={search} required/>
+      <Button variant="success" type="submit" onClick={handleButtonEvents}>Search</Button>
+      <p> Currently displaying: {search}</p>
+      <div>
       
-      placeholder={userInput} required/>
-      <Button variant="success" type="submit" onClick={handleButtonEvents}  >Search</Button>
+      </div>
     </div>
     </>
   );

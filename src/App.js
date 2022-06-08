@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css"
 import {useEffect, useState} from 'react';
-const baseUrl = process.env.baseUrl || "http://localhost:3001"
+import React from 'react';
 
 
 
@@ -11,11 +11,12 @@ function App() {
       symbol: "",
       price: "",
       percentChange: "",
+      _id: "",
     }
   ]);
 
   useEffect(() => {
-    fetch(`${baseUrl}/api`)
+    fetch('/api')
     .then((res) => res.json())
     .then((res) => setStocks(res))
   },[]); 
@@ -36,7 +37,7 @@ function App() {
         body: JSON.stringify({res}),
       };
   
-      const response = fetch(`${baseUrl}/api/delete`, options);
+      const response = fetch(`/api/delete`, options);
       console.log("stock deleted");
       console.log(response);
     };
@@ -57,7 +58,7 @@ const handleRefresh = (e) => {
       body: JSON.stringify({res}),
     };
 
-    const response = fetch(`${baseUrl}/api/refresh`, options);
+    const response = fetch(`/api/refresh`, options);
     console.log("price refreshed");
     console.log(response);
   };
@@ -74,14 +75,13 @@ const uniqueStocks = Array.from(stocks.reduce((map, obj) =>
   return (
             <div className="App">
             {uniqueStocks.map(stock => {
-
               const arr = wordToArr(stock.percentChange);
-
               return(
                 (stock.price ? (
-                <div className="stock" key={stock.symbol}>
+                <div className="stock" key={stock._id}>
                 
                   <h1>{stock.symbol.toUpperCase()}</h1>
+                  
                   <p className="stockPrice">${stock.price}</p>
                   {arr[1] === "+" ? (
                   <p className="greenPercent">{stock.percentChange}</p>
@@ -89,11 +89,11 @@ const uniqueStocks = Array.from(stocks.reduce((map, obj) =>
                     <p className="redPercent">{stock.percentChange}</p>
                   )
                   } 
-                  <button className="deleteBtn" data-value={stock.symbol} onClick={handleDelete}>x</button>
+                  <button className="deleteBtn" data-value={stock._id} onClick={handleDelete}>x</button>
                   <button className="refreshBtn" data-value={stock.symbol} onClick={handleRefresh}></button>
                 </div>
                 ) : (
-                  <div key={stock.symbol}>
+                  <div key={stock._id} className="displaynone">
                   </div>
                 ))
               )
